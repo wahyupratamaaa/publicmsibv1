@@ -1,0 +1,11 @@
+.venv/
+.env
+venv
+
+
+
++ profil penjual create book
+- show dibagian produk and etalase di depan
+- delete produk
+- user/server 1 db produk saja
+- Books: [{'penulis': 'ssss', 'judul': 'sss', 'harga': 222, 'image': '/static/uploads/Screenshot_2024-11-09_at_13.50.20-20241109203717.png'}] ws tk find gari eksekusi frontend e

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='EduBooks.png') }}"
+      type="image/png"
+    />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Anda di checkout</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM9cl07n8Z7w/RSYsl3d5C6T7Z5aXhb4Z9Or8au"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/card.css') }}"
+    />
+
+    <style>
+      * {
+        font-family: 'Poppins', serif;
+      }
+      .carousel .slide-inner {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+      }
+      .carousel .slide-item {
+        display: none;
+        flex: 1 0 100%;
+      }
+      .carousel .slide-item.active {
+        display: block;
+      }
+      .control-prev,
+      .control-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.3);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+      }
+      body {
+        background-image: url("{{url_for('static', filename= 'wala.png')}}");
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      .control-prev {
+        left: 10px;
+      }
+      .control-next {
+        right: 10px;
+      }
+
+      .btn-outline-black:hover {
+        background-color: #5d76e1;
+        color: white;
+        border-color: #ffffff;
+      }
+      .btn-outline-black {
+        color: black;
+        border-color: black;
+      }
+      .box {
+        width: 50%;
+        margin: 0;
+        height: auto;
+        border-radius: 15px;
+      }
+      .box .slide-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 15px;
+      }
+      .child-box {
+        width: 25rem;
+        margin: 0;
+        padding: 0;
+        height: 13.5rem;
+        border-radius: 15px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .product {
+        margin-top: 5rem;
+      }
+      .container-tentang {
+        width: 100%;
+        height: auto;
+        margin: 5px;
+        padding: 10px;
+        border: 2px dashed gray;
+        margin-top: 5rem;
+        border-radius: 15px;
+      }
+      .container-tentang .text h1 {
+        color: gray;
+        font-weight: 700;
+      }
+      .container-tentang .text span {
+        color: black;
+      }
+      .container-tentang img {
+        width: 20%;
+        height: auto;
+        object-fit: contain;
+        margin: 5rem;
+      }
+      .icon {
+        margin-top: 5rem;
+        border-top: 2px dashed gray;
+        padding-top: 2rem;
+      }
+      .nav-item .nav-link {
+        font-size: 12px;
+        color: #6c757d;
+      }
+      .text-navbar {
+        color: black;
+        text-decoration: none;
+        width: auto;
+        height: 1rem;
+      }
+      .btn-user {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: none;
+        outline: none;
+      }
+      .input-group {
+        width: 20%;
+      }
+      .payment {
+        margin-left: 5rem;
+      }
+    </style>
+    <script>
+      window.onload = function () {
+        loadCheckoutData();
+      };
+
+      function login() {
+        window.location.href = '/login';
+      }
+
+      function daftar() {
+        window.location.href = '/registrasi';
+      }
+
+      function sukses() {
+        const bookId = '{{ book.id }}';
+        fetch('/user/complete_checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ book_id: bookId }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Pesanan Berhasil Dibuat',
+                timer: 2000,
+                timerProgressBar: true,
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Gagal Membuat Pesanan',
+                text: data.error || 'Terjadi kesalahan',
+                timer: 2000,
+                timerProgressBar: true,
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal Membuat Pesanan',
+              text: 'Terjadi kesalahan',
+              timer: 2000,
+              timerProgressBar: true,
+            });
+          });
+      }
+
+      function loadCheckoutData() {
+        const bookData = JSON.parse('{{ book | tojson | safe }}');
+        console.log('Data buku:', bookData);
+
+        const bookContainer = document.getElementById('book-container');
+        bookContainer.innerHTML = `
+          <div class="card">
+            <div class="card-body">
+              <div class="card-item">
+                <img src="${bookData.image}" alt="cover buku" loading="lazy" style="width: 100%; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+              </div>
+              <h5 class="card-title text-muted">${bookData.penulis}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${bookData.judul}</h6>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0" style="font-size: 12px;"><strong> Rp ${bookData.harga}</strong></p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    </script>
+  </head>
+  <body>
+    <div
+      class="container text-xs py-4 d-flex flex-row gap-2 align-items-center justify-content-between text-black"
+      id="beranda"
+    >
+      <div
+        class="d-flex gap-3 px-4 justify-content-center"
+        style="cursor: pointer"
+      >
+        <a onclick="window.location.href='/user/dashboard'" class="text-navbar"
+          >Beranda</a
+        >
+      </div>
+      <div class="d-flex justify-content-center" style="margin-left: -100px">
+        <img
+          src="{{ url_for('static', filename='EduBooks.png') }}"
+          alt="icon"
+          style="height: auto; width: 80px"
+        />
+      </div>
+      <div class="d-flex flex-row gap-3">
+        <button class="btn-user" onclick="menuToggle()">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mb-4" style="position: relative">
+      <img
+        src="{{ url_for('static', filename='diskon.webp') }}"
+        alt="diskon"
+        style="height: 80px; width: 100%"
+      />
+      <p
+        style="
+          position: absolute;
+          top: 50%;
+          left: 30%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+          font-size: 24px;
+          font-weight: bold;
+          z-index: 1 text-muted;
+        "
+      >
+        Promo Terbatas! Buku Terbaik dengan Harga Terhemat hingga 70%!
+      </p>
+    </div>
+    <h3
+      class="container text-muted"
+      style="margin-bottom: -2rem; margin-top: 3rem"
+    >
+      Checkout
+    </h3>
+    <div class="container" style="margin-top: 5rem">
+      <div id="book-container"></div>
+
+      <button
+        type="button"
+        class="btn btn-outline-success btn-sm"
+        style="margin-top: 1rem"
+        onclick="sukses()"
+      >
+        Checkout
+      </button>
+    </div>
+    <div class="payment mt-4 container">
+      <div class="d-flex align-items-center justify-content-around">
+        <h2 class="fw-bold text-muted">Payment</h2>
+        <div class="">
+          <img
+            src="{{ url_for('static', filename='bank/Bank BCA.png') }}"
+            alt="BCA"
+            style="width: 200px; height: auto"
+          />
+        </div>
+        <div>
+          <img
+            src="{{ url_for('static', filename='bank/Bank BRI.png') }}"
+            alt="BRI"
+            style="width: 200px; height: auto"
+          />
+        </div>
+        <div>
+          <img
+            src="{{ url_for('static', filename='bank/Bank MANDIRI.png') }}"
+            alt="MANDIRI"
+            style="width: 200px; height: auto"
+          />
+        </div>
+      </div>
+    </div>
+    {% include 'dev/footer.html' %}
+  </body>
+</html>

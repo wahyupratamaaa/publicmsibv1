@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+     .container-footer {
+          width: 100%;
+          height: auto;
+          margin: 5px;
+          padding: 0;
+          margin-top: 5rem;
+          background-color: #EFEFEF;
+        }
+        .tagline{
+          color: black;
+
+        }
+        .nav-item{
+          color:black
+        }
+        .nav-item .nav-link{
+          font-size: 12px;
+          color: #6c757d;
+        } 
+        .footer {
+          margin-top: 200rem;
+        }
+         .store {
+          display: flex;
+          gap: 1rem;
+          margin-left: 0;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+</style>
+<body>
+           
+<div class="container-footer">
+    <footer class="py-5 px-10">
+      <div class="row px-5">
+        <div class="col-6 col-md-2 mb-3">
+          <h6 class="tagline">Produk EduBooks</h6>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary ">EduBooks Afiliasi</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary ">Mitra Afiliasi</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-6 col-md-2 mb-3">
+          <h6 class="tagline">Informasi Belanja</h6>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Berbelanja</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pembayaran</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pengiriman</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-6 col-md-2 mb-3">
+          <h6 class="tagline">Tentang EduBooks</h6>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Tentang Kami</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Toko Kami</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-md-5 offset-md-1 mb-3">
+          <form>
+            <h6 style="margin-left: auto;">Aplikasi Seluler Kami</h6>
+            <p class="text-sm" style="font-size: 14px;">Download aplikasi EduBooks yang tersedia di seluruh perangkat iOS dan Android</p>
+            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+             <div class="d-flex flex-row gap-2" style="width: 30%; height: auto;">
+              <img src="{{ url_for('static', filename='apple-app-store.webp') }}" alt="app" width="50%" height="auto">
+              <img src="{{ url_for('static', filename='google-play.webp') }}" alt="app" width="50%" height="auto">
+            </div>
+               </div>
+            </div>
+          </form>
+        </div>
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top px-5">
+          <h6 class="text-muted">© 2024 Company, Inc. All rights reserved.</h6>
+          <ul class="list-unstyled d-flex">
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+</body>
+</html>
